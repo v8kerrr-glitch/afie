@@ -56,6 +56,191 @@ a {
     align-items: center;
     color: #fff;
 }
+
+/* 언어 드롭다운 컨테이너 */
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* 트리거 텍스트 */
+.lang-trigger {
+    cursor: pointer;
+    display: block;
+}
+
+/* 드롭다운 메뉴 본체 (평소엔 숨김) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    min-width: 80px;
+    padding: 10px 0;
+    border: 1px solid #eaeaea;
+    z-index: 10;
+    margin-top: 5px;
+}
+
+/* 드롭다운 항목 */
+.dropdown-content a {
+    display: block;
+    padding: 8px 15px;
+    font-size: 11px;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+/* 호버 시 색상 및 효과 */
+.dropdown-content a:hover {
+    color: #111;
+    text-decoration: underline;
+}
+
+/* 마우스 호버 시 드롭다운 표시 */
+.lang-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 미니 카트 오버레이 */
+.mini-cart-overlay {
+    position: fixed;
+    top: 0;
+    right: -400px; /* 처음에는 화면 밖으로 숨김 */
+    width: 400px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+    z-index: 9999;
+    transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* =========================================
+   메가 메뉴 (PRODUCTS 호버 시 전체화면 메뉴)
+========================================= */
+.header {
+    position: relative; /* 메가 메뉴의 기준점이 되도록 필수 추가 */
+}
+
+.mega-menu-wrapper {
+    /* 이 영역에 마우스를 올리면 메뉴가 나타남 */
+    padding-bottom: 25px; /* 헤더의 하단 패딩만큼 영역을 확장해 마우스가 벗어나지 않게 함 */
+    margin-bottom: -25px;
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%; /* 헤더의 바로 아래에 위치 */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    padding: 50px 40px;
+    z-index: 999;
+    
+    /* 호버 애니메이션 (부드럽게 나타남) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mega-menu-wrapper:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.mega-menu-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.mega-col h4 {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #111;
+}
+
+/* 한 열(Column) 안에 여러 h4가 있을 때 간격 띄우기 */
+.mega-col h4:not(:first-child) {
+    margin-top: 40px;
+}
+
+.mega-col ul {
+    list-style: none;
+}
+
+.mega-col ul li {
+    margin-bottom: 12px;
+}
+
+.mega-col ul li a {
+    font-size: 11px;
+    color: #555;
+    font-weight: 400;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.mega-col ul li a:hover {
+    color: #111;
+    text-decoration: underline;
+}
+
+/* New 배지 스타일 */
+.badge-new {
+    font-size: 9px;
+    color: #111;
+    font-style: italic;
+    margin-left: 6px;
+}
+
+/* 우측 프로모션 이미지 탭 */
+.mega-featured img {
+    width: 220px;
+    height: auto;
+    display: block;
+    background-color: #f7f7f7;
+    margin-bottom: 15px;
+}
+
+.mega-featured p {
+    font-size: 11px;
+    color: #111;
+    text-decoration: underline;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+
+
+/* 호버 감지 영역을 위해 트리거를 포함한 부모 설정 */
+.nav-right:hover + .mini-cart-overlay,
+.mini-cart-overlay:hover {
+    right: 0;
+}
+
+.mini-cart { padding: 40px; height: 100%; display: flex; flex-direction: column; }
+.cart-header { display: flex; justify-content: space-between; margin-bottom: 40px; }
+.cart-header h3 { font-size: 16px; letter-spacing: 2px; }
+.empty-msg { font-size: 12px; color: #777; text-align: center; margin-top: 100px; }
+
+.cart-footer { margin-top: auto; }
+.checkout-btn { 
+    width: 100%; padding: 15px; border: 1px solid #111; 
+    background: #111; color: #fff; font-size: 11px; cursor: pointer; 
+}
+
+/* 카트 트리거 호버 시 패널 활성화 */
+.cart-trigger:hover + .mini-cart-overlay { right: 0; }
 /* =========================================
    네비게이션 서치 아이콘 크기 및 정렬 조절
 ========================================= */
@@ -126,7 +311,7 @@ a {
 ========================================= */
 .hero-section {
     position: fixed; /* [핵심] 동영상을 화면에 완전 고정 */
-    top: 30px;       /* 탑 배너 두께만큼 내려서 시작 */
+    top: -30px;       /* 탑 배너 두께만큼 내려서 시작 */
     left: 0;
     width: 100%;
     height: calc(100vh - 30px); 
